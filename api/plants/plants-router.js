@@ -5,7 +5,7 @@ const router = express.Router();
 const { restricted } = require("../auth/auth-middleware");
 
 
-router.get('/', (req, res, next) => {
+router.get('/', restricted, (req, res, next) => {
     Plant.find()
     .then(plants => {
         res.json(plants)
@@ -22,7 +22,7 @@ router.get('/:id', restricted, (req, res, next) => {
 })
 
 
-router.delete('/:plant_id', (req, res, next) =>{
+router.delete('/:plant_id', restricted, (req, res, next) =>{
     Plant.del(req.params.plant_id)
     .then(plant => {
         res.json(plant)
